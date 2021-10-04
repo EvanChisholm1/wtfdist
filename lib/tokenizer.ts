@@ -3,10 +3,15 @@ const punctDict: { [key: string]: boolean } = {};
 punct.split("").forEach(char => (punctDict[char] = true));
 
 function removePunctuation(content: string): string {
-  const newString = content
-    .split("")
-    .map(char => (punctDict[char] ? " " : char))
-    .join("");
+  // const newString = content
+  //   .split("")
+  //   .map(char => (punctDict[char] ? " " : char))
+  //   .join("");
+  let newString = content;
+
+  for (const c of punct) {
+    newString = newString.replaceAll(c, " ");
+  }
 
   return newString;
 }
