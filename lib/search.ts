@@ -2,9 +2,10 @@ import Document from "../types/document.ts";
 import { tokenize } from "./tokenizer.ts";
 import findRecordsByWord from "./findRecordsByWord.ts";
 import rank from "./rank.ts";
+import removeStopWords from "./removeStopWords.ts";
 
 async function search(query: string): Promise<Document[]> {
-  const tokens = tokenize(query);
+  const tokens = tokenize(removeStopWords(query));
   const recordIds = await findRecordsByWord(...tokens);
 
   const allRecords: Document[] = [];
@@ -25,12 +26,5 @@ async function search(query: string): Promise<Document[]> {
 
   return rankedRecords;
 }
-
-console.log(
-  (await search("computer")).map(doc => ({
-    title: doc.title,
-    url: doc.link,
-  }))
-);
 
 export default search;
