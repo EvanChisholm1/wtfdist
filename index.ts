@@ -50,7 +50,33 @@ router.post("/webpage", async (ctx: Context) => {
     };
   }
 });
-// router.post('/document')
+
+router.post("/document", async (ctx: Context) => {
+  if (ctx.request.hasBody) {
+    const result = ctx.request.body({ type: "json" });
+    const body = await result.value;
+    console.log(result);
+    console.log(body);
+    console.log(typeof body);
+
+    if (!body.text)
+      return (ctx.response.body = { error: "error: no text field in body" });
+
+    await indexAndSave({
+      content: body.text,
+      title: body.title ? body.title : undefined,
+      link: body.url,
+    });
+
+    ctx.response.body = {
+      message: "successfully added document to index",
+    };
+  } else {
+    ctx.response.body = {
+      error: "error: no body",
+    };
+  }
+});
 
 app.use(router.routes());
 app.use(router.allowedMethods());
