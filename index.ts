@@ -3,7 +3,7 @@ import {
   Router,
   Context,
 } from "https://deno.land/x/oak@v9.0.1/mod.ts";
-import { oakCors } from "https://deno.land/x/cors/mod.ts";
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 import search from "./lib/search.ts";
 import scrubHtml from "./lib/scrubHtml.ts";
 import fetchHtml from "./lib/fetchHtml.ts";
