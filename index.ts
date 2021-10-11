@@ -17,6 +17,7 @@ app.use(oakCors({ origin: "*" }));
 
 router.get("/search", async (ctx: Context) => {
   const query = ctx.request.url.searchParams.get("q");
+  console.log("searching for", query);
   const results = await search(query || "");
   ctx.response.body = results;
 });
@@ -81,4 +82,4 @@ router.post("/document", async (ctx: Context) => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen({ port: 3000 });
+app.listen({ port: 4000 });

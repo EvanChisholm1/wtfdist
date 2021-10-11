@@ -6,6 +6,7 @@ import removeStopWords from "./removeStopWords.ts";
 
 async function search(query: string): Promise<Document[]> {
   const tokens = tokenize(removeStopWords(query));
+  // const tokens = tokenize(query);
   const recordIds = await findRecordsByWord(...tokens);
 
   const allRecords: Document[] = [];
