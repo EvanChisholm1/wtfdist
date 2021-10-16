@@ -1,5 +1,4 @@
 import scrubHtml from "./lib/scrubHtml.ts";
-import fetchHtml from "./lib/fetchHtml.ts";
 import indexAndSave from "./lib/indexAndSave.ts";
 import getHtmlTitle from "./lib/getHtmlTitle.ts";
 

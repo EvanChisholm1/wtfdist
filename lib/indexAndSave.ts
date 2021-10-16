@@ -12,9 +12,7 @@ async function indexAndSave(options: {
     JSON.stringify(indexedDoc)
   );
 
-  for (const word of Object.keys(indexedDoc.tokens)) {
-    await addToIndex(word, indexedDoc.tokens[word], indexedDoc.id);
-  }
+  await addToIndex(indexedDoc);
 }
 
 export default indexAndSave;

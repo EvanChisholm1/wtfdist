@@ -1,13 +1,26 @@
 import WordIndex from "../types/wordIndex.ts";
 import Index from "../types/index.ts";
+import Document from "../types/document.ts";
 
-async function addToIndex(
-  word: string,
-  timesAppeared: number,
-  documentId: string
-) {
+async function addToIndex(document: Document) {
   const indexFile = await Deno.readTextFile("./db/index/index.json");
   const index: Index = JSON.parse(indexFile);
+
+  for (const word of Object.keys(document.tokens)) {
+    addWordToIndex(word, document.tokens[word], document.id, index);
+  }
+
+  await Deno.writeTextFile("./db/index/index.json", JSON.stringify(index));
+}
+
+function addWordToIndex(
+  word: string,
+  timesAppeared: number,
+  documentId: string,
+  index: Index
+) {
+  // const indexFile = await Deno.readTextFile("./db/index/index.json");
+  // const index: Index = JSON.parse(indexFile);
 
   let wordIndex: WordIndex | undefined = index.words[word];
   if (!wordIndex) {
@@ -40,7 +53,7 @@ async function addToIndex(
     }
   }
 
-  await Deno.writeTextFile("./db/index/index.json", JSON.stringify(index));
+  // await Deno.writeTextFile("./db/index/index.json", JSON.stringify(index));
 }
 
 // async function addToIndexold(
