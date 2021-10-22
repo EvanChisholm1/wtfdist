@@ -23,7 +23,20 @@ async function search(query: string): Promise<Document[]> {
     }
   }
 
-  const rankedRecords = rank(tokens, allRecords);
+  // only get the records that include all the search terms
+  const validRecords = allRecords.filter(record => {
+    let includesAllTerms = true;
+    for (const term of tokens) {
+      const includesTerm = record.tokens[term];
+      if (!includesTerm) {
+        includesAllTerms = false;
+      }
+    }
+
+    return includesAllTerms;
+  });
+
+  const rankedRecords = rank(tokens, validRecords);
 
   return rankedRecords;
 }
